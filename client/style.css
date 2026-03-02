@@ -1,0 +1,51 @@
+#mainDiv {
+
+}
+
+#menu1 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background-color: rgb(230, 199, 159);
+    border-width: 4px;
+    border-style: solid;
+    padding: 200px 80px;
+    
+}
+
+#menu hr {
+
+    
+
+}
+
+#menu1 h1 {
+    text-align: center;
+    margin: 1px;
+    padding: 1px 1px;
+    display: block;
+}
+
+#menu1 h2 {
+    text-align: center;
+    
+}
+
+#menu2 {
+
+    text-align: center;
+
+}
+
+#beginPlay {
+
+    border-radius: 20px;
+    padding: 20px;
+    cursor: pointer;
+    transition: background-color 0.35s;
+
+}
+
+#beginPlay:hover {
+
+    background-color: rgb(33, 180, 230);
+}
+
