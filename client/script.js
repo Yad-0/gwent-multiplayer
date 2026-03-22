@@ -69,7 +69,7 @@ let myTurn = false;
 
 const SERVER_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     ? 'ws://127.0.0.1:3000'
-    : 'wss://your-render-app.onrender.com';
+    : 'wss://gwent-server-dvo7.onrender.com/';
 
 const socket = new WebSocket(SERVER_URL);
 
