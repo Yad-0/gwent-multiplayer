@@ -1,100 +1,646 @@
+/* ═══════════════════════════════════════
+   GWENT BOARD — CSS
+   Theme: dark parchment / medieval war room
+═══════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
+:root {
+    --gold:         #c9a84c;
+    --gold-light:   #e8cc7a;
+    --gold-dark:    #8a6a1f;
+    --bg-dark:      #0f0d0a;
+    --bg-panel:     #1a1610;
+    --bg-board:     #141008;
+    --bg-row:       #1c1810;
+    --border:       #3a2e18;
+    --border-gold:  #c9a84c;
+    --text-main:    #e8dfc8;
+    --text-dim:     #8a7a5a;
+    --red:          #8b2020;
+    --red-light:    #c43030;
+    --panel-width:  160px;
+    --side-width:   160px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Crimson Text', serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ═══ MAIN WRAPPER ═══ */
 #mainDiv {
-
-     /* width: 1900px;
-      height: 1100px;
-      background-image: url("imgs/gwentBoard1.jpg"); 
-      background-size: 1900px 1100px;                  
-      background-repeat: no-repeat;            
-      background-position: center;             
-      border: 2px solid black;   */
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
 }
 
-.card {
-    
-    border: 3px crimson solid;
-    padding: 60px 10px;
+/* ═══ EACH HALF ═══ */
+.player-half {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    flex: 1;
+}
+
+/* ═══ INFO PANEL ═══ */
+.player-panel {
+    width: var(--panel-width);
+    min-width: var(--panel-width);
+    background-color: var(--bg-panel);
+    border-right: 2px solid var(--border-gold);
+    display: flex;
+    flex-direction: column;
+    padding: 12px 10px;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.panel-name {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+}
+
+.panel-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.panel-label {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+}
+
+.panel-value {
+    font-family: 'Cinzel', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gold);
+}
+
+.leader-name {
+    font-family: 'Crimson Text', serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-main);
+    text-align: center;
+    line-height: 1.3;
+}
+
+.rounds-display {
+    display: flex;
+    gap: 8px;
+    margin-top: 2px;
+}
+
+.round-gem {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid var(--gold-dark);
+    background: var(--bg-dark);
     display: inline-block;
-    white-space: pre-line; /* respects \n as line breaks */
+    transition: background 0.4s, box-shadow 0.4s;
+}
+
+.round-gem.won {
+    background: var(--gold);
+    border-color: var(--gold-light);
+    box-shadow: 0 0 8px var(--gold);
+}
+
+.turn-section {
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+}
+
+.turn-label {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+}
+
+.turn-section.active .turn-label {
+    color: var(--gold);
+    text-shadow: 0 0 8px var(--gold-dark);
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.pass-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--text-main);
+    background: var(--red);
+    border: 1px solid var(--red-light);
+    border-radius: 3px;
+    padding: 6px 14px;
     cursor: pointer;
-    margin: 1px;
-    text-align: center;
-    
-    
-}
-.card:hover {
-    border: 5px crimson solid;
-    padding: 70px 20px;
-    margin: -1px;
+    transition: background 0.2s, border-color 0.2s;
+    width: 100%;
 }
 
-.placedCard {
-    text-align: center;
-    border: 3px rgb(0, 0, 0) solid;
-    padding: 60px 10px;
-    display: inline-block;
-    white-space: pre-line; /* respects \n as line breaks */
+.pass-btn:hover {
+    background: var(--red-light);
+    border-color: var(--text-main);
+}
+
+.pass-btn:disabled {
+    background: var(--bg-dark);
+    border-color: var(--border);
+    color: var(--text-dim);
     cursor: default;
-    margin: 1px;
 }
 
-#boardSeparation {          /*  controls the <hr> tag at the middle of the game board   */
-
- height: 6px; 
- background-color: black; 
- border: none; 
-    
+.passed-indicator {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--text-dim);
+    text-align: center;
+    padding: 6px 0;
 }
 
-hr {                /*  controls the other <hr> tags on the game board   */
-
- height: 4px; 
- border: none; 
- border-top: dashed;
- color: orange;
-    
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.4; }
 }
 
+/* ═══ BOARD AREA ═══ */
+#player1-side,
+#player2-side {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-board);
+    min-width: 0;
+}
+
+.board-row-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 6px 10px;
+    min-height: 110px;
+    cursor: context-menu;
+    transition: background 0.2s;
+    user-select: none;
+}
+
+.board-row-wrapper:hover {
+    background: rgba(201, 168, 76, 0.04);
+}
+
+.board-row {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    min-height: 90px;
+    padding: 4px;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.row-label {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
+.round-result-box {
+    text-align: center;
+    padding: 40px 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+}
+
+.round-result-title {
+    font-family: 'Cinzel', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-shadow: 0 0 20px var(--gold-dark);
+}
+
+.round-result-scores {
+    display: flex;
+    gap: 40px;
+}
+
+.round-score-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.round-score-value {
+    font-family: 'Cinzel', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+/* ═══ BOARD SEPARATOR ═══ */
+#boardSeparation {
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(
+        to right,
+        var(--bg-panel) 0px,
+        var(--bg-panel) var(--panel-width),
+        var(--gold) var(--panel-width),
+        var(--gold) calc(100% - var(--side-width)),
+        var(--bg-panel) calc(100% - var(--side-width))
+    );
+    border: none;
+    flex-shrink: 0;
+}
+
+/* ═══ ROW DIVIDERS ═══ */
+#player1-side hr,
+#player2-side hr {
+    border: none;
+    border-top: 1px dashed var(--border);
+    margin: 0 10px;
+}
+
+/* ═══ COUNTER BADGES ═══ */
 .counter {
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gold);
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 3px 8px;
+    white-space: nowrap;
+    margin-left: 8px;
+    flex-shrink: 0;
+    min-width: 65px;
+    text-align: center;
+}
 
-  display: block;       /* makes it a block element again */
-  width: fit-content;   /* shrink to fit text */
-  margin: 0 auto;       /* center horizontally */
-  padding: 4px 10px;    /* optional styling */
-  background: #eee;
-  border-radius: 4px;
-  font-size: 20px;
-
+/* ═══ HAND ═══ */
+.hand {
+    background: var(--bg-panel);
+    border-top: 2px solid var(--border-gold);
+    padding: 10px 12px;
+    min-height: 130px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
 }
 
 .hand-title {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--text-dim);
+    width: 100%;
+    margin-bottom: 4px;
+}
 
-  display: block;       /* makes it a block element again */
-  width: fit-content;   /* shrink to fit text */
-  margin: 0 auto;       /* center horizontally */
-  padding: 4px 10px;    /* optional styling */
-  background: #eee;
-  border-radius: 4px;
-  font-size: 30px;
-
+/* ═══ SIDE COLUMN (discard only) ═══ */
+.side-column {
+    width: var(--side-width);
+    min-width: var(--side-width);
+    display: flex;
+    flex-direction: column;
+    border-left: 2px solid var(--border);
+    flex-shrink: 0;
 }
 
 .discardRow {
-
-    border: 4px solid black;
-    padding: 20px 20px;
-    margin: 5px;
+    flex: 1;
+    background: var(--bg-panel);
+    padding: 10px 8px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
-#player1-hand {
-    margin: 5px;
-    border: 4px solid black;
-    padding: 20px 20px;
-   
+.discard-title {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--text-dim);
+    text-align: center;
+    margin-bottom: 6px;
+    display: block;
 }
 
-#player2-hand {
-    margin: 5px;
-    border: 4px solid black;
-    padding: 20px 20px;
-    
+/* ═══ CARDS ═══ */
+.card {
+    border: 2px solid var(--red);
+    border-radius: 3px;
+    padding: 30px 8px;
+    display: inline-block;
+    white-space: pre-line;
+    cursor: pointer;
+    text-align: center;
+    font-family: 'Crimson Text', serif;
+    font-size: 12px;
+    color: var(--text-main);
+    background: #1a0a0a;
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+    min-width: 65px;
+    max-width: 90px;
+    flex-shrink: 1;
+}
+
+.card:hover {
+    border-color: var(--red-light);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 18px rgba(139, 32, 32, 0.5);
+    z-index: 10;
+    position: relative;
+}
+
+.placedCard {
+    border: 2px solid var(--border);
+    border-radius: 3px;
+    padding: 30px 8px;
+    display: inline-block;
+    white-space: pre-line;
+    cursor: default;
+    text-align: center;
+    font-family: 'Crimson Text', serif;
+    font-size: 12px;
+    color: var(--text-main);
+    background: #12100a;
+    min-width: 65px;
+    max-width: 90px;
+    flex-shrink: 1;
+}
+
+/* ═══════════════════════════════════
+   POPUP SYSTEM
+═══════════════════════════════════ */
+
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.88);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+}
+
+.popup-overlay.open {
+    display: flex;
+}
+
+/* ── Row overview popup ── */
+.popup-box {
+    background: var(--bg-panel);
+    border: 2px solid var(--border-gold);
+    border-radius: 6px;
+    padding: 20px 24px;
+    max-width: 90vw;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+}
+
+.popup-title {
+    font-family: 'Cinzel', serif;
+    font-size: 14px;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+}
+
+.popup-close {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 3px;
+    padding: 2px 8px;
+    transition: border-color 0.2s, color 0.2s;
+    font-family: 'Cinzel', serif;
+}
+
+.popup-close:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+}
+
+.popup-cards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+}
+
+/* Cards inside row popup — larger */
+.popup-card {
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    padding: 50px 14px 14px;
+    min-width: 100px;
+    max-width: 120px;
+    background: #12100a;
+    font-family: 'Crimson Text', serif;
+    font-size: 13px;
+    color: var(--text-main);
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.15s;
+    white-space: pre-line;
+    position: relative;
+}
+
+.popup-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-4px);
+}
+
+.popup-card-power {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Cinzel', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gold);
+}
+
+/* ── Card detail popup ── */
+.card-detail-box {
+    width: 560px;
+    max-width: 90vw;
+}
+
+.card-detail-layout {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.card-art-panel {
+    flex-shrink: 0;
+    width: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.card-art-placeholder {
+    width: 180px;
+    height: 220px;
+    background: var(--bg-dark);
+    border: 2px dashed var(--border);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.art-placeholder-text {
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+}
+
+.card-power-badge {
+    font-family: 'Cinzel', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--gold);
+    text-shadow: 0 0 12px var(--gold-dark);
+}
+
+.card-info-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 4px;
+}
+
+.card-detail-hero {
+    display: none;
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    background: rgba(201, 168, 76, 0.1);
+    border: 1px solid var(--gold-dark);
+    border-radius: 3px;
+    padding: 3px 8px;
+    width: fit-content;
+}
+
+.card-detail-hero.visible {
+    display: block;
+}
+
+.card-detail-title {
+    font-family: 'Cinzel', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-main);
+    line-height: 1.2;
+}
+
+.card-detail-meta {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.card-detail-faction,
+.card-detail-type {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    background: var(--bg-dark);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 2px 8px;
+    text-transform: uppercase;
+}
+
+.card-detail-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2px 0;
+}
+
+.card-detail-ability-name {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gold);
+}
+
+.card-detail-ability-desc {
+    font-family: 'Crimson Text', serif;
+    font-size: 15px;
+    color: var(--text-main);
+    line-height: 1.5;
+}
+
+.card-detail-flavour {
+    font-family: 'Crimson Text', serif;
+    font-size: 14px;
+    font-style: italic;
+    color: var(--text-dim);
+    line-height: 1.5;
 }

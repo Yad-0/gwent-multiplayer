@@ -16,19 +16,41 @@
             <br><br>
             <div id="menu2">
                 
+                <div id="guestSection">
+                    <h3 class="myH3">Join an existing room:</h3>
+                    <label for="roomID">Room Code: </label>
+                    <input type="text" id="roomID">
+                    <br><br>
+                    <input type="button" value="Join!" class="btn" id="joinRoom">
+                    <br>
+                    <p id="lobbyGuestMessage"></p>
+                </div>
+
+                <br>
+
+                <div id="hostSection">
+                <h3 class="myH3">Host a Room:</h3>
                 <h3 class="myH3">How would you like to play?</h3>
                 <input type="radio" id="normalGwent" name="modeSelection" required>
                 <label for="normalGwent">Normal Gwent</label>
                 <br><br>
                 <input type="radio" id="reworkGwent" name="modeSelection" required>
                 <label for="reworkGwent">Reworked Gwent</label>
-                <br><br><br>
-                <input type="submit" value="Start Playing!" id="beginPlay">
+                <br><br>
+                <input type="button" value="Host Game!" id="hostRoom" class="btn">
+                
+                </div>
+                <div id="roomCodeDisplay" style="display:none">
+                    <p>Your room code:</p>
+                    <h2 id="roomCodeText"></h2>
+                    <p>Share this with your opponent!</p>
+                    <p id="lobbyHostMessage"></p>
+                </div>
             
             </div>
             
         </div>
     </div>
-    <script src="script.js"></script>
+    <script src="lobby.js"></script>
 </body>
 </html>

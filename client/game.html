@@ -7,75 +7,224 @@
     <link rel="stylesheet" href="game.css">
 </head>
 <body>
+
+    <!-- ═══════════════════════════════════════
+         ROW OVERVIEW POPUP (Layer 1)
+         Right click / long press a row to open
+    ═══════════════════════════════════════ -->
+    <div id="row-popup" class="popup-overlay">
+        <div class="popup-box" id="row-popup-box">
+            <div class="popup-header">
+                <span id="row-popup-title" class="popup-title"></span>
+                <button class="popup-close" id="row-popup-close">✕</button>
+            </div>
+            <div class="popup-cards" id="row-popup-cards"></div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         CARD DETAIL POPUP (Layer 2)
+         Click a card inside the row popup
+    ═══════════════════════════════════════ -->
+    <div id="card-popup" class="popup-overlay">
+        <div class="popup-box card-detail-box">
+            <button class="popup-close" id="card-popup-close">✕</button>
+            <div class="card-detail-layout">
+
+                <div class="card-art-panel">
+                    <div class="card-art-placeholder" id="card-detail-art">
+                        <span class="art-placeholder-text">ART</span>
+                    </div>
+                    <div class="card-power-badge" id="card-detail-power"></div>
+                </div>
+
+                <div class="card-info-panel">
+                    <div class="card-detail-hero" id="card-detail-hero">✦ HERO UNIT</div>
+                    <h2 class="card-detail-title" id="card-detail-title"></h2>
+                    <div class="card-detail-meta">
+                        <span class="card-detail-faction" id="card-detail-faction"></span>
+                        <span class="card-detail-type" id="card-detail-type"></span>
+                    </div>
+                    <hr class="card-detail-divider">
+                    <div class="card-detail-ability-name" id="card-detail-ability-name"></div>
+                    <div class="card-detail-ability-desc" id="card-detail-ability-desc"></div>
+                    <hr class="card-detail-divider">
+                    <div class="card-detail-flavour" id="card-detail-flavour"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+     ROUND RESULT POPUP
+═══════════════════════════════════════ -->
+<div id="round-popup" class="popup-overlay">
+    <div class="popup-box round-result-box">
+        <div class="round-result-title" id="round-result-title"></div>
+        <div class="round-result-scores">
+            <div class="round-score-block">
+                <span class="panel-label">YOUR SCORE</span>
+                <span class="round-score-value" id="round-p1-score"></span>
+            </div>
+            <div class="round-score-block">
+                <span class="panel-label">OPPONENT SCORE</span>
+                <span class="round-score-value" id="round-p2-score"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- ═══════════════════════════════════════
+         MAIN BOARD
+    ═══════════════════════════════════════ -->
     <div id="mainDiv">
 
-        <div id="player2-hand">
-            <h3 class="hand-title">P2 Hand</h3>
+        <!-- ── OPPONENT HALF ── -->
+        <div id="player2-half" class="player-half">
+
+            <div id="player2-panel" class="player-panel">
+                <div class="panel-name">
+                    <span class="panel-label">OPPONENT</span>
+                    <span class="panel-value" id="p2-name">Player 2</span>
+                </div>
+                <div class="panel-section">
+                    <span class="panel-label">TOTAL SCORE</span>
+                    <span class="panel-value" id="p2-total-score">0</span>
+                </div>
+                <div class="panel-section">
+                    <span class="panel-label">ROUNDS WON</span>
+                    <div class="rounds-display">
+                        <span class="round-gem" id="p2-round-1"></span>
+                        <span class="round-gem" id="p2-round-2"></span>
+                    </div>
+                </div>
+                <div class="panel-section">
+                    <span class="panel-label">CARDS IN HAND</span>
+                    <span class="panel-value" id="p2-card-count">0</span>
+                </div>
+                <div class="panel-section">
+                    <span class="panel-label">LEADER</span>
+                    <span class="panel-value leader-name" id="p2-leader">—</span>
+                </div>
+
+                <div class="panel-section">
+                    <div class="passed-indicator" id="p2-passed-indicator" style="display:none">PASSED</div>
+                </div>
+
+                <div class="panel-section turn-section active" id="p2-turn-indicator">
+                    <span class="turn-label">WAITING...</span>
+                </div>
+            </div>
+
+            <div id="player2-side">
+                <div class="board-row-wrapper" id="row-wrapper-2c">
+                    <span class="row-label">SIEGE</span>
+                    <div id="board-2c" class="board-row"></div>
+                    <h4 id="board-2c-count" class="counter"></h4>
+                </div>
+                <hr>
+                <div class="board-row-wrapper" id="row-wrapper-2b">
+                    <span class="row-label">RANGE</span>
+                    <div id="board-2b" class="board-row"></div>
+                    <h4 id="board-2b-count" class="counter"></h4>
+                </div>
+                <hr>
+                <div class="board-row-wrapper" id="row-wrapper-2a">
+                    <span class="row-label">COMBAT</span>
+                    <div id="board-2a" class="board-row"></div>
+                    <h4 id="board-2a-count" class="counter"></h4>
+                </div>
+            </div>
+
+            <div class="side-column">
+                <div id="player2-discard" class="discardRow">
+                    <h3 class="discard-title">DISCARDED</h3>
+                </div>
+            </div>
+
         </div>
-        
-        <div id="player2-discard" class="discardRow">
-            <h3 class="discard-title">P2 Discarded</h3>
-        </div>
 
-        <div id="player2-side">
-            
-            <br><hr><br>
-            <div id="board-2c">
-                <h1>P2 Siege</h1>
-            </div>
-            <h4 id="board-2c-count" class="counter"></h4>
-            <br><hr><br>
-            <div id="board-2b">
-                <h1>P2 Range</h1>
-            </div>
-            <h4 id="board-2b-count" class="counter"></h4>
-           
-            <br><hr><br>
-            <div id="board-2a">
-                <h1>P2 Combat</h1>
-            </div>
-            <h4 id="board-2a-count" class="counter"></h4>
-           
+        <!-- ── BOARD SEPARATOR ── -->
+        <hr id="boardSeparation">
 
-        </div>
+        <!-- ── YOUR HALF ── -->
+        <div id="player1-half" class="player-half">
 
-        <br><hr id="boardSeparation"><br>
+            <div id="player1-panel" class="player-panel">
+                <div class="panel-name">
+                    <span class="panel-label">YOU</span>
+                    <span class="panel-value" id="p1-name">Player 1</span>
+                </div>
+                <div class="panel-section">
+                    <span class="panel-label">TOTAL SCORE</span>
+                    <span class="panel-value" id="p1-total-score">0</span>
+                </div>
+                <div class="panel-section">
+                    <span class="panel-label">ROUNDS WON</span>
+                    <div class="rounds-display">
+                        <span class="round-gem" id="p1-round-1"></span>
+                        <span class="round-gem" id="p1-round-2"></span>
+                    </div>
+                </div>
+                <div class="panel-section">
+                    <span class="panel-label">CARDS IN HAND</span>
+                    <span class="panel-value" id="p1-card-count">0</span>
+                </div>
+                <div class="panel-section">
+                    <span class="panel-label">LEADER</span>
+                    <span class="panel-value leader-name" id="p1-leader">—</span>
+                </div>
+                <br>
+                <div class="panel-section">
+                    <div class="passed-indicator" id="p1-passed-indicator" style="display:none">PASSED</div>
+                </div>
 
-        <div id="player1-side">
+                <div class="panel-section">
+                    <button class="pass-btn" id="pass-btn">PASS</button>
+                </div>
 
-             <div id="board-1a">
-                <h1>P1 Combat</h1>
+                <div class="panel-section turn-section active" id="p1-turn-indicator">
+                    <span class="turn-label">YOUR TURN</span>
+                </div>
             </div>
-            <h4 id="board-1a-count" class="counter"></h4>
-            <br><hr><br>
-            <div id="board-1b">
-                <h1>P1 Range</h1>
+
+            <div id="player1-side">
+                <div class="board-row-wrapper" id="row-wrapper-1a">
+                    <span class="row-label">COMBAT</span>
+                    <div id="board-1a" class="board-row"></div>
+                    <h4 id="board-1a-count" class="counter"></h4>
+                </div>
+                <hr>
+                <div class="board-row-wrapper" id="row-wrapper-1b">
+                    <span class="row-label">RANGE</span>
+                    <div id="board-1b" class="board-row"></div>
+                    <h4 id="board-1b-count" class="counter"></h4>
+                </div>
+                <hr>
+                <div class="board-row-wrapper" id="row-wrapper-1c">
+                    <span class="row-label">SIEGE</span>
+                    <div id="board-1c" class="board-row"></div>
+                    <h4 id="board-1c-count" class="counter"></h4>
+                </div>
+                <hr>
+                <div id="player1-hand" class="hand">
+                    <h3 class="hand-title">YOUR HAND</h3>
+                </div>
             </div>
-            <h4 id="board-1b-count" class="counter"></h4>
-    
-            <br><hr><br>
-            <div id="board-1c">
-                <h1>P1 Siege</h1>
+
+            <div class="side-column">
+                <div id="player1-discard" class="discardRow">
+                    <h3 class="discard-title">DISCARDED</h3>
+                </div>
             </div>
-            <h4 id="board-1c-count" class="counter"></h4>
-            <br><hr><br>
-            
 
         </div>
 
     </div>
 
-    <div id="player1-discard" class="discardRow">
-        <h3 class="discard-title">P1 Discarded</h3>
-        
-    </div>
-    
-    <div id="player1-hand">
-        <h3 class="hand-title">P1 Hand</h3>
-    </div>
-
-    
- 
+    <script src="cards.js"></script>
+    <script src="popup.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
